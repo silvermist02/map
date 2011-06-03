@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Map</title>
+  <%= stylesheet_link_tag :all %>
+  <style>
+  	body
+  	{
+  		font-family: sans-serif;
+  		font-size: small;
+  		background: #BFE3FE;
+  		color: #BFE3FE;
+  	}
+  	a, a:visited
+  	{
+  		text-decoration: none;
+  		color: #BFE3FE;
+  	}
+  	a:hover
+  	{
+  		background: none;
+  		text-decoration: underline;
+  		color: #BFE3FE;
+  	}
+  	h1
+  	{
+  		font-size: medium;
+  	}
+  	#header
+  	{
+  		height: 1em;
+  		background: #3B5998; 
+  		color: white;
+  		padding: 1em;
+  		margin-bottom: 0.5em;
+  	}
+  	#site_name
+  	{
+  		float: left;
+  		font-size: medium;
+  		font-weight: bold;
+  	}
+  	#user_nav
+  	{
+  		float: right;
+  	}
+  	#wrapper
+  	{
+  		position: absolute;
+  		width: 80em;
+  		left: 50%;
+  		margin-left: -41em;
+  		background: white;
+  		padding: 1em;
+  		color: #0033CC;
+  	}
+  	#main
+  	{
+  		background: #00248E;
+  		color: white;
+  		padding: 1em;
+  		height: 31em;
+  	}
+  	#left_col
+  	{
+  		background: #3B5998; 
+  		float: left;
+  		width: 25em;
+  		height: 29em;
+  		padding: 1em;
+  		margin-right: 1em;
+  	}
+  	#right_col
+  	{
+  		background: #3B5998; 
+  		float: left;
+  		width: 50em;
+  	}
+  	#place
+  	{
+  		position: absolute;
+  		left: 56em;
+  		top: 18em;
+  		color: red;
+  		z-index: 1;
+  	}
+  	#map_search, #map_canvas
+  	{
+  		width: 50em;
+  		height: 30em;
+  		background: #3B5998; 
+  	}
+  	#list
+  	{
+  		height: 20em;
+  		overflow: auto;
+  	}
+  	#notice
+  	{
+  		height: 1em;
+  	}
+  	#loc_name
+  	{
+  		width:24em;
+  	}
+  	#loc_link
+  	{
+  		font-style: italic;
+  		font-size: 0.8em;
+  	}
+  </style>
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA" type="text/javascript"></script>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body onload="initialize()" onunload="GUnload()">
+<div id="wrapper">
+	<div id="header">
+		<div id="site_name">facemap</div>
+		<div id="user_nav">
+			<% if user_signed_in? %>
+				Signed in as <%= current_user.email %>. Not you? <%= link_to 'Sign Out', destroy_user_session_path %>
+			<% else %>
+				<%= link_to 'Sign In', new_user_session_path %> or <%= link_to 'Sign Up', new_user_registration_path %>
+			<% end %>
+		</div>
+	</div>
+	<div id="main">
+		<%= yield %>
+	</div>
+</div>
+</body>
+</html>
